@@ -6,14 +6,40 @@ jQuery(document).ready(function()
 						{
 							url					: "file-upload.php",
 							method				: 'POST',
-							//parallelUploads		: 3, 		//Max no of AJAX calls
+							dictDefaultMessage	: 'Drop files or click here to upload',	//Default message shown in the drop div
+							parallelUploads		: 100,
 							autoProcessQueue	: false, 	//Will process manually after all done
-							maxFiles			: 10,	
+							maxFiles			: 10,
 							maxFilesize			: 1, 		// MB
-							addRemoveLinks		: true,
-							thumbnail: function (file, response)
+							dictFileTooBig		: 'Image is bigger than 1 MB',
+							addRemoveLinks		: true,									//Enabling remove Link
+							dictRemoveFile		: 'Remove This Image',
+							dictCancelUpload	: 'Cancel Upload this Image',
+    						dictInvalidFileType	: 'Please upload only Image',
+    						dictResponseError	: 'Server Error',
+							init:function()
 							{
-								$(".dz-progress").remove();	//Remove the progress bar
+								this.on("removedfile", function(file)
+								{
+									$.ajax(
+									{
+										type: 'POST',
+										url: 'upload/delete',
+										data: {id: file.name},
+										dataType: 'html',
+										success: function(data)
+										{
+											var rep = JSON.parse(data);
+											if(rep.code == 200)
+											{
+												photo_counter--;
+												$("#photoCounter").text( "(" + photo_counter + ")");
+											}
+
+										}
+									});
+
+								});
 							},
 							success: function (file, response)
 							{
@@ -21,11 +47,11 @@ jQuery(document).ready(function()
 								file.previewElement.classList.add("dz-success");
 								console.log("Successfully uploaded :" + imgName);
 								$(".dz-progress").remove();
-							},
+							}/*,
 							error: function (file, response)
 							{
 								file.previewElement.classList.add("dz-error");
-							}
+							}*/
 						});
 
 	$("#dropzone_form").submit(function(e)
@@ -36,3 +62,9 @@ jQuery(document).ready(function()
 		console.log(files);
 	});
 });
+
+
+// https://tuts.codingo.me/laravel-5-1-and-dropzone-js-auto-image-uploads-with-removal-links
+// https://arjunphp.com/how-to-use-dropzone-js-laravel-5/
+// http://www.dropzonejs.com/#installation
+// http://stackoverflow.com/questions/23956963/sending-additional-parameter-with-dropzone-js
