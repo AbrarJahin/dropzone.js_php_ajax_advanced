@@ -6,20 +6,30 @@ jQuery(document).ready(function()
 						{
 							url					: "file-upload.php",
 							method				: 'POST',
-							dictDefaultMessage	: 'Drop files or click here to upload',	//Default message shown in the drop div
-							parallelUploads		: 100,
-							autoProcessQueue	: false, 	//Will process manually after all done
-							maxFiles			: 10,
-							maxFilesize			: 1, 		// MB
+							acceptedFiles		: 'image/*',
+							dictDefaultMessage	: 'Drop images or click here to upload image',	//Default message shown in the drop div
+							//uploadMultiple		: true,
+							//parallelUploads		: 3,									//No of perallel file upload
+							//paramName			: 'file_param_received_in_server',			//Max no of parallel upload
+							headers				: {											//Pass extra variables on the time of processing
+														"param1": "header value",
+														"param2": "header value 2"
+													},
+							autoProcessQueue	: false, 								//Will process manually after all done
+							maxFiles			: 10,									//Max no of files to be uploaded
+							maxFilesize			: 1, 									// In MB
 							dictFileTooBig		: 'Image is bigger than 1 MB',
+							//dictMaxFilesExceeded: 'File size should be less than 1 MB',
 							addRemoveLinks		: true,									//Enabling remove Link
 							dictRemoveFile		: 'Remove This Image',
 							dictCancelUpload	: 'Cancel Upload this Image',
-    						dictInvalidFileType	: 'Please upload only Image',
+							//dictCancelUploadConfirmation : true,						//Cancel upload confirmation
+    						dictInvalidFileType	: 'Please upload only Image Under 1 MB',
     						dictResponseError	: 'Server Error',
+    						dictFallbackMessage	: 'Your Browser is Not Supported, Please Update Your Browser',
 							init:function()
 							{
-								this.on("removedfile", function(file)
+								this.on("removedfile", function(file)	//Delete Function Implementation if needed
 								{
 									$.ajax(
 									{
