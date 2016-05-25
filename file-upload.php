@@ -1,6 +1,6 @@
 <?php
 
-	include 'db.php';
+	include 'config.php';
 	$upload_dir = 'myuploads';
 	function insert_data($ar)
 	{
@@ -13,12 +13,12 @@
 
 	if (!empty($_FILES))
 	{
-		$tempFile = $_FILES['file']['tmp_name'];
+		$tempFile = $_FILES['file_param_received_in_server']['tmp_name'];
 		// using DIRECTORY_SEPARATOR constant is a good practice, it makes your code portable.
 		$targetPath = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . $upload_dir . DIRECTORY_SEPARATOR;  
 		// Adding timestamp with image's name so that files with same name can be uploaded easily.
-		$fname =  $targetPath.time().'-'. $_FILES['file']['name'];  
-		$file_name=time().'-'. $_FILES['file']['name'];
+		$fname =  $targetPath.time().'-'. $_FILES['file_param_received_in_server']['name'];  
+		$file_name=time().'-'. $_FILES['file_param_received_in_server']['name'];
 		$ftype=$_FILES["file"]["type"];
 		$fsize=($_FILES["file"]["size"] / 1024);
 		$tmpname=$_FILES["file"]["tmp_name"];
