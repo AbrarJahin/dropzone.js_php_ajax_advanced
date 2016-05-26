@@ -75,6 +75,11 @@ jQuery(document).ready(function()
 		var files = $('#drag_drop_image_upload_div').get(0).dropzone.getAcceptedFiles();
 		console.log(files);
 	});
+
+	$myDropZone[0].dropzone.on('sending', function(file, xhr, formData)
+	{
+		formData.append('userName', 'bob');
+	});
 });
 
 

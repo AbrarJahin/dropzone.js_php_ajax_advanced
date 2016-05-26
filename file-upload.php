@@ -10,6 +10,7 @@
 		mysqli_query($obj->connection(),"INSERT INTO  file_upload ".$key." VALUES ".$val);
 		//mysqli_close($obj->con);
 	}
+	var_dump($_POST['userName']);
 
 	if (!empty($_FILES))
 	{
@@ -19,10 +20,10 @@
 		// Adding timestamp with image's name so that files with same name can be uploaded easily.
 		$fname =  $targetPath.time().'-'. $_FILES['file_param_received_in_server']['name'];  
 		$file_name=time().'-'. $_FILES['file_param_received_in_server']['name'];
-		$ftype=$_FILES["file"]["type"];
-		$fsize=($_FILES["file"]["size"] / 1024);
-		$tmpname=$_FILES["file"]["tmp_name"];
-		$flink='http://localhost/dragdrop%20file%20upload/myuploads/'.$file_name;
+		$ftype=$_FILES["file_param_received_in_server"]["type"];
+		$fsize=($_FILES["file_param_received_in_server"]["size"] / 1024);
+		$tmpname=$_FILES["file_param_received_in_server"]["tmp_name"];
+		$flink='./myuploads/'.$file_name;
 		$arr= array('fname'=>$file_name,
 		'fsize'=>$fsize,
 		'flink'=>$flink,
