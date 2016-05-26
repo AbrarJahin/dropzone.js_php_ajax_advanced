@@ -27,12 +27,12 @@ jQuery(document).ready(function()
     						dictInvalidFileType	: 'Only image uploading allowed',
     						dictResponseError	: 'Server Error',
     						dictFallbackMessage	: 'Your Browser is Not Supported, Please Update Your Browser',
-							init:function()
+							/*init:function()
 							{
 								this.on("removedfile", function(file)	//Delete Function Implementation if needed
 								{
-									//alert('Removing '+ file.name);
-									/*$.ajax(
+									alert('Removing '+ file.name);
+									$.ajax(
 									{
 										type: 'POST',
 										url: 'upload/delete',
@@ -48,9 +48,9 @@ jQuery(document).ready(function()
 											}
 
 										}
-									});*/
+									});
 								});
-							},/*
+							},
 							accept: function(file, done)
 							{
 								$(".dz-progress").remove();
